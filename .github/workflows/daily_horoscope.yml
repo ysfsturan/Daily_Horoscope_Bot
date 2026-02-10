@@ -1,0 +1,35 @@
+name: Daily Horoscope Bot
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Horoscope Bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          BIRTH_DATE: ${{ secrets.BIRTH_DATE }}
+          BIRTH_TIME: ${{ secrets.BIRTH_TIME }}
+          BIRTH_CITY: ${{ secrets.BIRTH_CITY }}
+          USER_GOAL: ${{ secrets.USER_GOAL }}
+        run: python main.py
