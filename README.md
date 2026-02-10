@@ -12,7 +12,7 @@ Standart burç yorumlarının aksine, bu bot **Flatlib** kütüphanesini kullana
 ## 🚀 Özellikler
 
 * **🌌 Hassas Astronomik Hesaplama:** Flatlib ile gezegenlerin anlık konumlarını ve açılarını matematiksel bir şekilde hesaplar.
-* **🤖 Yapay Zeka Destekli Yorum:** Gemini 2.5 Flash API kullanılarak, astronomik veriler "insan benzeri" ve motivasyon odaklı bir dille yorumlanır.
+* **🤖 Yapay Zeka Destekli Yorum:** Gemini 2.5 Flash API kullanılarak, astronomik veriler insan benzeri ve motivasyon odaklı bir dille yorumlanır.
 * **📅 Özel Gün Farkındalığı:** Doğum günlerinizi, yeni ayları ve haftanın günlerini algılayarak buna uygun içerik üretir.
 * **⚡ Tam Otomasyon:** GitHub Actions sayesinde sunucu maliyeti olmadan her gün belirlediğiniz saatte otomatik çalışır.
 * **📍 Konum Bazlı Analiz:** Türkiye'nin tüm şehirleri için enlem/boylam verisine sahiptir, doğum haritasını şehre göre optimize eder.
@@ -37,6 +37,13 @@ Sayfanın sağ üst köşesindeki **Fork** butonuna tıklayarak bu projeyi kendi
 
 ### 2. Ayarları Yapılandırın (Secrets) 🔑
 Botun çalışabilmesi için gerekli API anahtarlarını ve parametreleri GitHub deponuza tanımlamanız gerekmektedir.
+
+> **ℹ️ Anahtarlar Nereden Alınır?**
+> * **Google Gemini API Key:** [Google AI Studio](https://aistudio.google.com/app/apikey) adresine giderek "Create API Key" butonuna basınız ve ücretsiz anahtarınızı alınız.
+> * **Telegram Bot Token:** Telegram'da [@BotFather](https://t.me/BotFather) ile sohbet başlatıp `/newbot` komutunu kullanarak token alabilirsiniz.
+> * **Telegram Chat ID:** Telegram'da [@userinfobot](https://t.me/userinfobot) botunu başlatınız. Size vereceği "Id" değerini kopyalayınız.
+> * **⚠️ ÇOK ÖNEMLİ:** Kendi oluşturduğunuz botu Telegram'da bulun ve **`/start`** komutunu gönderin. Bunu yapmazsanız bot size mesaj atamaz!
+
 1. Forkladığınız deponun **Settings** sekmesine gidiniz.
 2. Sol menüden **Secrets and variables > Actions** yolunu izleyiniz.
 3. **New repository secret** butonuna tıklayarak aşağıdaki değişkenleri sırasıyla ekleyiniz:
