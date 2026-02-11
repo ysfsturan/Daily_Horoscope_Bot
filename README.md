@@ -56,7 +56,7 @@ Botun çalışabilmesi için gerekli API anahtarlarını ve parametreleri GitHub
 | `USER_NAME` | `Yusuf` | Kullanıcının Adı |
 | `BIRTH_DATE` | `2000-09-26` | Doğum Tarihi (Yıl-Ay-Gün formatında) |
 | `BIRTH_TIME` | `04:00` | Doğum Saati |
-| `BIRTH_CITY` | `İstanbul` | Doğum Şehri (Türkçe karakter desteklenir) |
+| `BIRTH_CITY` | `İstanbul` | Doğum Şehri |
 | `USER_GOAL` | `Kariyer ve Para` | Yorumun odaklanacağı ana tema |
 
 ### 3. Botu Aktif Edin 🚀
