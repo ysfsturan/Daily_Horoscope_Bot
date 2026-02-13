@@ -62,7 +62,7 @@ Botun çalışabilmesi için gerekli API anahtarlarını ve parametreleri GitHub
 ### 3. Botu Aktif Edin 🚀
 1. **Actions** sekmesine tıklayınız.
 2. Karşınıza çıkan yeşil renkli **"I understand my workflows, go ahead and enable them"** butonuna basınız.
-3. Bot, her sabah Türkiye saati ile saat 9'da otomatik olarak çalışacaktır.
+3. Bot, her sabah Türkiye saati ile saat 10'da otomatik olarak çalışacaktır.
 
 > **Manuel Test:** Actions sekmesinde sol menüden "Daily Horoscope Bot" akışını seçip, sağ üstteki **Run workflow** butonuna tıklayarak botu manuel olarak tetikleyebilirsiniz.
 
