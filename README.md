@@ -66,6 +66,16 @@ Botun çalışabilmesi için gerekli API anahtarlarını ve parametreleri GitHub
 
 > **Manuel Test:** Actions sekmesinde sol menüden "Daily Horoscope Bot" akışını seçip, sağ üstteki **Run workflow** butonuna tıklayarak botu manuel olarak tetikleyebilirsiniz.
 
+---
+
+## 📞 İletişim & Destek
+
+Proje ile ilgili bir hata fark ederseniz veya özellik isteğiniz varsa lütfen bir **[Issue](https://github.com/ysfsturan/Kastamonu_UBYS_Bot/issues)** açın.
+
+<div align="center">
+
+---
+
 ## ⚠️ Yasal Uyarı
 
 Bu bot, astrolojik hesaplamalar ve yapay zeka modelleri kullanarak içerik üretmektedir. 
@@ -75,4 +85,4 @@ Bu bot, astrolojik hesaplamalar ve yapay zeka modelleri kullanarak içerik üret
 
 ---
 
-*Made with ❤️ by [Yusuf Sami Turan](https://www.linkedin.com/in/yusufsamituran).*
+Made with ❤️ by [Yusuf Sami Turan](https://www.linkedin.com/in/yusufsamituran).
