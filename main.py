@@ -137,7 +137,7 @@ def get_horoscope(natal, transit):
         f"⚠️ FORMAT: Sadece <b>, <i> etiketleri kullan. ASLA CSS, HTML BLOKLARI veya <style> kullanma. Bol emoji kullan! ✨"
     )
 
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + GEMINI_API_KEY
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=" + GEMINI_API_KEY
     
     headers = {'Content-Type': 'application/json'}
     data = {"contents": [{"parts": [{"text": prompt}]}]}
