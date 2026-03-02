@@ -7,12 +7,12 @@
 
 **Daily Horoscope Bot**, kişiselleştirilmiş astrolojik yorumları her sabah otomatik olarak Telegram üzerinden gönderen gelişmiş bir Python botudur. 
 
-Standart burç yorumlarının aksine, bu bot **Flatlib** kütüphanesini kullanarak doğum haritanızı ve anlık gökyüzü konumlarını saniyesi saniyesine hesaplar. Elde edilen bilimsel veriler, **Google Gemini 2.5 Flash** modelinde işlenerek size özel, nokta atışı bir günlük yorum oluşturulur.
+Standart burç yorumlarının aksine, bu bot **Flatlib** kütüphanesini kullanarak doğum haritanızı ve anlık gökyüzü konumlarını saniyesi saniyesine hesaplar. Elde edilen bilimsel veriler, **Google Gemini 3 Flash** modelinde işlenerek size özel, nokta atışı bir günlük yorum oluşturulur.
 
 ## 🚀 Özellikler
 
 * **🌌 Hassas Astronomik Hesaplama:** Flatlib ile gezegenlerin anlık konumlarını ve açılarını matematiksel bir şekilde hesaplar.
-* **🤖 Yapay Zeka Destekli Yorum:** Gemini 2.5 Flash API kullanılarak, astronomik veriler insan benzeri ve motivasyon odaklı bir dille yorumlanır.
+* **🤖 Yapay Zeka Destekli Yorum:** Gemini 3 Flash API kullanılarak, astronomik veriler insan benzeri ve motivasyon odaklı bir dille yorumlanır.
 * **📅 Özel Gün Farkındalığı:** Doğum günlerinizi, yeni ayları ve haftanın günlerini algılayarak buna uygun içerik üretir.
 * **⚡ Tam Otomasyon:** GitHub Actions sayesinde sunucu maliyeti olmadan her gün belirlediğiniz saatte otomatik çalışır.
 * **📍 Konum Bazlı Analiz:** Türkiye'nin tüm şehirleri için enlem/boylam verisine sahiptir, doğum haritasını şehre göre optimize eder.
