@@ -1,7 +1,7 @@
 # 🔮 AI-Powered Daily Horoscope Bot
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
-![Gemini AI](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-orange?style=for-the-badge&logo=google)
+![Gemini AI](https://img.shields.io/badge/Google%20Gemini-3%20Flash-orange?style=for-the-badge&logo=google)
 ![Telegram](https://img.shields.io/badge/Telegram-Bot-2CA5E0?style=for-the-badge&logo=telegram)
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Automated-2088FF?style=for-the-badge&logo=github-actions)
 
