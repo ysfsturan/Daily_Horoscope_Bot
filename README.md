@@ -4,187 +4,130 @@
 
 # 🇬🇧 English
 
-# 🔮 AI-Powered Daily Horoscope Bot
+# 🔮 AI-Powered Daily Horoscope & Astrology Bot
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
-![Gemini AI](https://img.shields.io/badge/Google%20Gemini-3%20Flash-orange?style=for-the-badge&logo=google)
+![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)
+![Gemini AI](https://img.shields.io/badge/Google%20Gemini-Auto%20Flash-orange?style=for-the-badge&logo=google)
+![Astronomy](https://img.shields.io/badge/VSOP87-astronomy--engine-purple?style=for-the-badge)
 ![Telegram](https://img.shields.io/badge/Telegram-Bot-2CA5E0?style=for-the-badge&logo=telegram)
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Automated-2088FF?style=for-the-badge&logo=github-actions)
 
-**Daily Horoscope Bot** is an advanced Python bot that automatically sends personalized astrological readings via Telegram every morning.
-
-Unlike standard horoscopes, this bot calculates your birth chart and current sky positions down to the second using the **Flatlib** library. The resulting scientific data is processed by the **Google Gemini 3 Flash** model to generate a pinpoint, custom daily reading just for you.
-
-## 🚀 Features
-
-* **🌌 Precise Astronomical Calculation:** Mathematically calculates the real-time positions and aspects of planets using Flatlib.
-* **🤖 AI-Powered Interpretation:** Astronomical data is interpreted in a human-like, motivation-focused language using the Gemini 3 Flash API.
-* **📅 Special Day Awareness:** Detects your birthdays, new moons, and days of the week to generate appropriate content.
-* **⚡ Full Automation:** Runs automatically every day at your specified time without server costs, thanks to GitHub Actions.
-* **📍 Location-Based Analysis:** Contains latitude/longitude data for all cities in Turkey, optimizing the birth chart according to the city.
+**Daily Horoscope Bot** is a modern, server-free Python & Telegram assistant that computes real astronomical birth & transit charts using **VSOP87 ephemerides (`astronomy-engine`)** and crafts tailored astrological guidance using **Google Gemini Flash**.
 
 ---
 
-## ⚙️ How It Works
+## 🚀 Key Features
 
-1. **Data Processing:** When the bot runs, it retrieves the birth data defined for `USER_NAME` and the current date. It calculates planetary interactions between the birth chart and the current sky map.
-2. **Prompt Engineering:** The calculated technical data is placed into a special prompt template. This template instructs the AI to focus on "Career", "Love", or "General" topics.
-3. **AI Generation:** Google's state-of-the-art model transforms the provided mathematical data into a meaningful, fluent, and motivating daily horoscope reading.
-4. **Notification:** The generated long text is split to avoid Telegram API limits and delivered to the user.
+- **🌌 Full Astronomical Calculation (All 10 Planets + ASC & MC):** Computes exact ecliptic longitudes (`ECT`) for Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, plus true **Ascendant** & **Midheaven (MC)** with historical `Europe/Istanbul` DST awareness.
+- **♻️ Retrograde & Transit-to-Natal Aspect Engine:** Detects planetary retrogrades mathematically (`°/day < 0`) and computes exact major transit aspects (`☌ Conjunction`, `⚹ Sextile`, `□ Square`, `△ Trine`, `☍ Opposition`) to your natal chart.
+- **🌕 Moon Phases, Illumination & Eclipses:** Displays live Moon phase name/percentage, upcoming New Moon & Full Moon dates, and alerts when an eclipse occurs within ±3 days.
+- **🤖 Self-Healing Gemini Flash Discovery:** Queries the Gemini API for active `generateContent` Flash models (e.g., `gemini-3-flash-preview` / `gemini-2.5-flash`) with secure `x-goog-api-key` headers, retries, and an offline astronomical fallback if the AI endpoint is busy.
+- **📍 All 81 Turkish Provinces + Custom Lat/Lon:** Full Turkish character folding (`İstanbul`, `Şanlıurfa`, `Afyonkarahisar`, `Mersin/İçel`, etc.) plus optional `BIRTH_LAT` / `BIRTH_LON`.
+- **🕹️ Multi-Mode & Interactive Telegram Commands:** Supports `daily`, `weekly`, `monthly`, `natal`, `moon`, `compatibility`, and interactive `/burc`, `/harita`, `/ay`, `/retro`, `/haftalik`, `/uyum <Sign>` commands.
+- **☁️ 100% Cloud Automated:** Runs automatically every morning at **09:00 TR (`06:00 UTC`)** via GitHub Actions with IPv4-hardened Telegram delivery and HTML tag-safe message splitting.
 
 ---
 
-## 🛠️ Installation and Usage
+## 🛠️ Setup & Secrets
 
-This project is designed to run entirely cloud-based.
+All **8 original Secrets remain 100% compatible**:
 
-### 1. Fork the Project 🍴
-Add this project to your own GitHub account by clicking the **Fork** button in the top right corner of the page.
+1. **Fork** this repository.
+2. Go to **Settings → Secrets and variables → Actions → Repository secrets** and add:
 
-### 2. Configure Settings (Secrets) 🔑
-You need to define the necessary API keys and parameters in your GitHub repository for the bot to work.
-
-> **ℹ️ Where to Get the Keys?**
-> * **Google Gemini API Key:** Go to [Google AI Studio](https://aistudio.google.com/app/apikey), click the "Create API Key" button, and get your free key.
-> * **Telegram Bot Token:** Start a chat with [@BotFather](https://t.me/BotFather) on Telegram and use the `/newbot` command to get a token.
-> * **Telegram Chat ID:** Start the [@userinfobot](https://t.me/userinfobot) bot on Telegram. Copy the "Id" value it gives you.
-> * **⚠️ VERY IMPORTANT:** Find the bot you created on Telegram and send the **`/start`** command. If you don't do this, the bot cannot send you messages!
-
-1. Go to the **Settings** tab of your forked repository.
-2. Navigate to **Secrets and variables > Actions** from the left menu.
-3. Click the **New repository secret** button and add the following variables in order:
-
-| Variable Name | Value (Secret) / Example | Description |
+| Secret Name | Example | Description |
 | :--- | :--- | :--- |
-| `BOT_TOKEN` | `123456:ABC-DEF...` | Telegram Token from BotFather |
-| `CHAT_ID` | `123456789` | Telegram Chat ID where messages will be sent |
-| `GEMINI_API_KEY` | `AIzaSyD...` | Google AI Studio API Key |
-| `USER_NAME` | `Yusuf` | User's Name |
-| `BIRTH_DATE` | `2000-09-26` | Birth Date (Year-Month-Day format) |
-| `BIRTH_TIME` | `04:00` | Birth Time |
-| `BIRTH_CITY` | `Istanbul` | Birth City |
-| `USER_GOAL` | `Career and Money` | Main theme the reading will focus on |
+| `BOT_TOKEN` | `123456:ABC-DEF...` | Telegram Token from [@BotFather](https://t.me/BotFather) |
+| `CHAT_ID` | `123456789` | Your Telegram ID from [@userinfobot](https://t.me/userinfobot) (comma-separated for multiple) |
+| `GEMINI_API_KEY` | `AIzaSyD...` | Free API key from [Google AI Studio](https://aistudio.google.com/app/apikey) |
+| `USER_NAME` | `Yusuf` | Name shown in readings |
+| `BIRTH_DATE` | `2000-09-26` | Birth date (`YYYY-MM-DD` or `DD.MM.YYYY`) |
+| `BIRTH_TIME` | `04:00` | Birth time (`HH:MM`) |
+| `BIRTH_CITY` | `Kastamonu` | Birth city (any of 81 Turkish cities) |
+| `USER_GOAL` | `Career & Software` | Focus area for daily advice |
 
-### 3. Activate the Bot 🚀
-1. Click the **Actions** tab.
-2. Click the green **"I understand my workflows, go ahead and enable them"** button that appears.
-3. The bot will run automatically every morning at 10:00 Turkish time.
+> **Optional Repository Variables (`Settings → Variables`):** `GEMINI_MODEL`, `LANGUAGE` (`tr`/`en`), `TONE` (`dengeli`/`motive`/`mistik`/`kisa`), `SHOW_CHART_SUMMARY` (`true`/`false`), `BIRTH_LAT`, `BIRTH_LON`, `TIMEZONE` (`Europe/Istanbul`), `PARTNER_SIGN`.
 
-> **Manual Test:** You can trigger the bot manually by selecting the "Daily Horoscope Bot" workflow from the left menu in the Actions tab and clicking the **Run workflow** button on the top right.
-
----
-
-## 📞 Contact & Support
-
-If you notice a bug or have a feature request regarding the project, please open an **[Issue](https://github.com/ysfsturan/Kastamonu_UBYS_Bot/issues)**.
-
-<div align="center">
-
----
-
-## ⚠️ Legal Disclaimer
-
-This bot generates content using astrological calculations and artificial intelligence models. 
-* **Accuracy:** The generated content may not yield 100% accurate results or predict the future with certainty.
-* **For Entertainment Purposes:** The provided advice is not a substitute for investment, health, or legal counseling. It should be used for entertainment and motivation purposes only.
-* **AI Hallucination:** Artificial intelligence may rarely produce out-of-context or inaccurate information.
-
----
-
-Made with ❤️ by [Yusuf Sami Turan](https://www.linkedin.com/in/yusufsamituran).
-
-</div>
-
-<br><br>
+3. Open the **Actions** tab, enable workflows if prompted, and trigger **Daily Horoscope Bot → Run workflow** (`daily`, `weekly`, `natal`, `moon`, `compatibility`, `chart_only`, or `commands`).
 
 ---
 
 # 🇹🇷 Türkçe
 
-# 🔮 AI-Powered Daily Horoscope Bot
+# 🔮 Yapay Zekâ & Gerçek Astronomi Destekli Günlük Burç Botu
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
-![Gemini AI](https://img.shields.io/badge/Google%20Gemini-3%20Flash-orange?style=for-the-badge&logo=google)
-![Telegram](https://img.shields.io/badge/Telegram-Bot-2CA5E0?style=for-the-badge&logo=telegram)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Automated-2088FF?style=for-the-badge&logo=github-actions)
-
-**Daily Horoscope Bot**, kişiselleştirilmiş astrolojik yorumları her sabah otomatik olarak Telegram üzerinden gönderen gelişmiş bir Python botudur. 
-
-Standart burç yorumlarının aksine, bu bot **Flatlib** kütüphanesini kullanarak doğum haritanızı ve anlık gökyüzü konumlarını saniyesi saniyesine hesaplar. Elde edilen bilimsel veriler, **Google Gemini 3 Flash** modelinde işlenerek size özel, nokta atışı bir günlük yorum oluşturulur.
-
-## 🚀 Özellikler
-
-* **🌌 Hassas Astronomik Hesaplama:** Flatlib ile gezegenlerin anlık konumlarını ve açılarını matematiksel bir şekilde hesaplar.
-* **🤖 Yapay Zeka Destekli Yorum:** Gemini 3 Flash API kullanılarak, astronomik veriler insan benzeri ve motivasyon odaklı bir dille yorumlanır.
-* **📅 Özel Gün Farkındalığı:** Doğum günlerinizi, yeni ayları ve haftanın günlerini algılayarak buna uygun içerik üretir.
-* **⚡ Tam Otomasyon:** GitHub Actions sayesinde sunucu maliyeti olmadan her gün belirlediğiniz saatte otomatik çalışır.
-* **📍 Konum Bazlı Analiz:** Türkiye'nin tüm şehirleri için enlem/boylam verisine sahiptir, doğum haritasını şehre göre optimize eder.
+**Daily Horoscope Bot**, sıradan burç kalıpları yerine **VSOP87 astronomi motoru (`astronomy-engine`)** ile doğum haritanı (Natal) ve anlık gökyüzünü (Transit) saniyesine kadar hesaplayan, ardından **Google Gemini Flash** ile sana özel astrolojik rehber hazırlayıp **Telegram**'dan gönderen sunucusuz Python asistanıdır.
 
 ---
 
-## ⚙️ Nasıl Çalışır?
+## 🚀 Öne Çıkan Özellikler
 
-1. **Veri İşleme:** Bot çalıştığında, `USER_NAME` için tanımlanan doğum verilerini ve o anki tarihi alır. Doğum haritası ve o anki gökyüzü haritası arasındaki gezegen etkileşimlerini hesaplar.
-2. **Prompt Mühendisliği:** Hesaplanan teknik veriler özel bir prompt şablonuna yerleştirilir. Bu şablon, AI'a "Kariyer", "Aşk" veya "Genel" odaklı yorum yapması talimatını verir.
-3. **Yapay Zeka Üretimi:** Google'ın son teknoloji modeli, verilen matematiksel verileri anlamlı, akıcı ve motive edici bir günlük burç yorumuna dönüştürür.
-4. **Bildirim:** Oluşturulan uzun metin, Telegram API limitlerine takılmadan parçalanır ve kullanıcıya iletilir.
+* **🌌 Tam Astronomik Hesaplama (10 Gezegen + Yükselen + MC):** Güneş, Ay, Merkür, Venüs, Mars, Jüpiter, Satürn, Uranüs, Neptün ve Plüton'un gerçek ekliptik derecelerini, **Yükselen (ASC)** ve **Tepe Noktası (MC)** burçlarını hesaplar. Doğum tarihindeki geçmiş Türkiye yaz/kış saati (`+02:00` / `+03:00`) farkını otomatik doğru alır.
+* **🔭 Gerçek Transit–Natal Açıları & Retro Tespiti:** Gökyüzündeki gezegenlerin senin doğum haritana yaptığı major açıları (`Kavuşum ☌`, `Sekstil ⚹`, `Kare □`, `Üçgen △`, `Karşıt ☍`) orb sırasıyla çıkarır ve aktif **Retro (℞)** gezegenleri otomatik saptar.
+* **🌕 Ay Evresi, Aydınlanma & Tutulma Takvimi:** Ay'ın o günkü evresini, aydınlanma yüzdesini, bir sonraki **Yeni Ay / Dolunay** tarihlerini ve ±3 gün içindeki **Güneş/Ay tutulmalarını** algılar.
+* **🤖 Otomatik Güncel Gemini Flash Keşfi:** Eski model adları kapatılsa bile Google AI API üzerinden aktif en güncel `gemini-*-flash` modellerini otomatik bulur, API anahtarını güvenli `x-goog-api-key` başlığında taşır ve geçici kesintilerde çevrimdışı özet üretir.
+* **📍 81 İl Koordinat Desteği & Özel Enlem/Boylam:** Türkiye'nin 81 ilini Türkçe karakter uyumlu olarak tanır (`İstanbul`, `Şanlıurfa`, `Afyonkarahisar`, `Mersin/İçel` dâhil). Yurt dışı için `BIRTH_LAT` / `BIRTH_LON` girilebilir.
+* **💬 Etkileşimli Telegram `/` Komutları:** `/burc`, `/harita`, `/ay`, `/retro`, `/haftalik`, `/uyum Boğa` komutlarını yalnızca tanımlı `CHAT_ID` hesaplarından kabul eder (`python main.py --listen` veya `Run workflow → commands`).
 
 ---
 
-## 🛠️ Kurulum ve Kullanım
+## 🛠️ Kurulum ve Kullanım (GitHub Actions — Ücretsiz)
 
-Bu proje, tamamen bulut tabanlı çalışacak şekilde tasarlanmıştır.
+1. Sağ üstten projeyi **Fork** edin.
+2. Telegram'da [@BotFather](https://t.me/BotFather) üzerinden botunuzu oluşturun, botunuza mutlaka **`/start`** yazın ve [@userinfobot](https://t.me/userinfobot) ile Chat ID'nizi alın. [Google AI Studio](https://aistudio.google.com/app/apikey)'dan ücretsiz Gemini API anahtarınızı oluşturun.
+3. Deponuzda **Settings → Secrets and variables → Actions → Repository secrets** bölümüne **8 sırrı** ekleyin:
 
-### 1. Projeyi Forklayın 🍴
-Sayfanın sağ üst köşesindeki **Fork** butonuna tıklayarak bu projeyi kendi GitHub hesabınıza ekleyiniz.
-
-### 2. Ayarları Yapılandırın (Secrets) 🔑
-Botun çalışabilmesi için gerekli API anahtarlarını ve parametreleri GitHub deponuza tanımlamanız gerekmektedir.
-
-> **ℹ️ Anahtarlar Nereden Alınır?**
-> * **Google Gemini API Key:** [Google AI Studio](https://aistudio.google.com/app/apikey) adresine giderek "Create API Key" butonuna basınız ve ücretsiz anahtarınızı alınız.
-> * **Telegram Bot Token:** Telegram'da [@BotFather](https://t.me/BotFather) ile sohbet başlatıp `/newbot` komutunu kullanarak token alabilirsiniz.
-> * **Telegram Chat ID:** Telegram'da [@userinfobot](https://t.me/userinfobot) botunu başlatınız. Size vereceği "Id" değerini kopyalayınız.
-> * **⚠️ ÇOK ÖNEMLİ:** Kendi oluşturduğunuz botu Telegram'da bulun ve **`/start`** komutunu gönderin. Bunu yapmazsanız bot size mesaj atamaz!
-
-1. Forkladığınız deponun **Settings** sekmesine gidiniz.
-2. Sol menüden **Secrets and variables > Actions** yolunu izleyiniz.
-3. **New repository secret** butonuna tıklayarak aşağıdaki değişkenleri sırasıyla ekleyiniz:
-
-| Değişken İsmi (Name) | Değer (Secret) / Örnek | Açıklama |
+| Değişken İsmi (Secret) | Örnek Değer | Açıklama |
 | :--- | :--- | :--- |
 | `BOT_TOKEN` | `123456:ABC-DEF...` | BotFather'dan alınan Telegram Token |
-| `CHAT_ID` | `123456789` | Mesajın gönderileceği Telegram Chat ID |
+| `CHAT_ID` | `123456789` | Telegram Chat ID *(birden fazla kişi için virgülle ayırabilirsiniz)* |
 | `GEMINI_API_KEY` | `AIzaSyD...` | Google AI Studio API Anahtarı |
-| `USER_NAME` | `Yusuf` | Kullanıcının Adı |
-| `BIRTH_DATE` | `2000-09-26` | Doğum Tarihi (Yıl-Ay-Gün formatında) |
-| `BIRTH_TIME` | `04:00` | Doğum Saati |
-| `BIRTH_CITY` | `İstanbul` | Doğum Şehri |
-| `USER_GOAL` | `Kariyer ve Para` | Yorumun odaklanacağı ana tema |
+| `USER_NAME` | `Yusuf` | Hitap edilecek ad |
+| `BIRTH_DATE` | `2000-09-26` | Doğum tarihi (`YYYY-AA-GG` veya `GG.AA.YYYY`) |
+| `BIRTH_TIME` | `04:00` | Doğum saati (`SS:DD`) |
+| `BIRTH_CITY` | `Kastamonu` | Doğum şehri *(81 ilden biri)* |
+| `USER_GOAL` | `Yazılım ve Kariyer` | Yorumların odaklanacağı ana hedef |
 
-### 3. Botu Aktif Edin 🚀
-1. **Actions** sekmesine tıklayınız.
-2. Karşınıza çıkan yeşil renkli **"I understand my workflows, go ahead and enable them"** butonuna basınız.
-3. Bot, her sabah Türkiye saati ile saat 10'da otomatik olarak çalışacaktır.
+> **İsteğe Bağlı Ek Ayarlar (`Variables`):** `GEMINI_MODEL`, `LANGUAGE` (`tr`/`en`), `TONE` (`dengeli`/`motive`/`mistik`/`kisa`), `SHOW_CHART_SUMMARY` (`true`/`false`), `BIRTH_LAT`, `BIRTH_LON`, `TIMEZONE`, `PARTNER_SIGN`.
 
-> **Manuel Test:** Actions sekmesinde sol menüden "Daily Horoscope Bot" akışını seçip, sağ üstteki **Run workflow** butonuna tıklayarak botu manuel olarak tetikleyebilirsiniz.
+4. **Actions** sekmesine girin, iş akışlarını aktif edin. Bot her sabah **Türkiye saatiyle 09:00'da** (`0 6 * * *` UTC) otomatik çalışır.
+5. **İstediğiniz An Test Etme:** **Actions → Daily Horoscope Bot → Run workflow** menüsünden `daily`, `weekly`, `monthly`, `natal`, `moon`, `compatibility`, `chart_only` veya `commands` kipini seçip hemen çalıştırabilirsiniz.
 
 ---
 
-## 📞 İletişim & Destek
+## 💻 Yerel Çalıştırma & CLI
 
-Proje ile ilgili bir hata fark ederseniz veya özellik isteğiniz varsa lütfen bir **[Issue](https://github.com/ysfsturan/Kastamonu_UBYS_Bot/issues)** açın.
+```bash
+python -m venv .venv
+pip install -r requirements.txt
+
+# Sadece astronomik harita ve Ay evresi (API anahtarı gerekmez)
+python main.py --chart-only
+
+# Telegram'a atmadan tam günlük yorum önizlemesi
+python main.py --mode daily --dry-run
+
+# Partner burç uyumu veya haftalık/aylık yorum
+python main.py --mode compatibility --partner Boğa --dry-run
+python main.py --mode weekly --dry-run
+
+# VPS/Docker üzerinde anlık Telegram komut dinleyici (/burc, /ay, /retro ...)
+python main.py --listen
+```
+
+---
+
+## 📞 İletişim & Destek / Contact
+
+Hata bildirimi veya özellik önerisi için **[Issues](https://github.com/ysfsturan/Daily_Horoscope_Bot/issues)** açabilirsiniz.
 
 <div align="center">
 
 ---
 
-## ⚠️ Yasal Uyarı
+## ⚠️ Yasal Uyarı / Disclaimer
 
-Bu bot, astrolojik hesaplamalar ve yapay zeka modelleri kullanarak içerik üretmektedir. 
-* **Kesinlik:** Üretilen içerikler %100 doğru sonuçlar vermeyebilir veya geleceği kesin olarak tahmin etmez.
-* **Eğlence Amaçlıdır:** Sunulan tavsiyeler yatırım, sağlık veya hukuk danışmanlığı yerine geçmez. Sadece eğlence ve motivasyon amaçlı kullanılmalıdır.
-* **Yapay Zeka Halüsinasyonu:** Yapay zeka nadiren de olsa bağlam dışı veya hatalı bilgiler üretebilir.
+Bu bot, VSOP87 astronomik gökyüzü hesaplamaları ve yapay zeka modelleri kullanarak içerik üretmektedir. Üretilen içerikler yatırım, sağlık veya hukuk tavsiyesi niteliği taşımaz; bilgi, eğlence ve kişisel motivasyon amaçlıdır.
 
 ---
 

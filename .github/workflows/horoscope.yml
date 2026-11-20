@@ -1,0 +1,100 @@
+name: Daily Horoscope Bot
+
+on:
+  schedule:
+    # UTC 06:00 = Türkiye saatiyle 09:00 (10:00 için '0 7 * * *' kullanabilirsiniz)
+    - cron: '0 6 * * *'
+
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Çalıştırma kipi"
+        required: false
+        type: choice
+        default: daily
+        options:
+          - daily
+          - weekly
+          - monthly
+          - natal
+          - moon
+          - compatibility
+          - chart_only
+          - commands
+      partner_sign:
+        description: "Uyumluluk analizi için partner burcu (ör: Boğa, Aslan)"
+        required: false
+        type: string
+        default: ""
+      dry_run:
+        description: "Telegram'a atmadan yalnızca Actions loglarında test et"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-horoscope-bot
+  cancel-in-progress: false
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Horoscope Bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          BIRTH_DATE: ${{ secrets.BIRTH_DATE }}
+          BIRTH_TIME: ${{ secrets.BIRTH_TIME }}
+          BIRTH_CITY: ${{ secrets.BIRTH_CITY }}
+          USER_GOAL: ${{ secrets.USER_GOAL }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          LANGUAGE: ${{ vars.LANGUAGE }}
+          TONE: ${{ vars.TONE }}
+          SHOW_CHART_SUMMARY: ${{ vars.SHOW_CHART_SUMMARY }}
+          SHOW_FOOTER: ${{ vars.SHOW_FOOTER }}
+          TIMEZONE: ${{ vars.TIMEZONE }}
+          BIRTH_LAT: ${{ vars.BIRTH_LAT }}
+          BIRTH_LON: ${{ vars.BIRTH_LON }}
+          PARTNER_SIGN: ${{ vars.PARTNER_SIGN }}
+        run: |
+          MODE="${{ inputs.mode }}"
+          PARTNER="${{ inputs.partner_sign }}"
+          DRY="${{ inputs.dry_run }}"
+          if [ -z "$MODE" ]; then
+            MODE="daily"
+          fi
+
+          EXTRA=""
+          if [ "$DRY" = "true" ]; then
+            EXTRA="--dry-run"
+          fi
+          if [ -n "$PARTNER" ]; then
+            EXTRA="$EXTRA --partner $PARTNER"
+          fi
+
+          if [ "$MODE" = "chart_only" ]; then
+            python main.py --chart-only
+          elif [ "$MODE" = "commands" ]; then
+            python main.py --commands
+          else
+            python main.py --mode "$MODE" $EXTRA
+          fi
